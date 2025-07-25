@@ -23,7 +23,15 @@ export async function POST(request: NextRequest) {
         const newUser = new User ({
             username, 
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            profile: {
+                firstName: "",
+                lastName: "",
+                displayName: "",
+                gender: "",
+                dateOfBirth: "",
+                country: ""
+            }
         })
 
         const savedUser = await newUser.save()
@@ -36,6 +44,6 @@ export async function POST(request: NextRequest) {
         }
 
     } catch (err: any) {
-        return NextResponse.json({error: err.message}, {status: 500})
+        return NextResponse.json({error: `Error: ${err.message}`}, {status: 500})
     }
 }
