@@ -24,18 +24,22 @@ export default function ProfileInfo() {
         displayName: "", 
         gender: "",
         dateOfBirth: "",
-        country: ""
+        country: "",
+        isProfileEdited: false
     })
 
     useEffect(() => {
-        setButtonDisabled(!(
+        if(!(
             userInfo.firstName.length > 0 &&
             userInfo.lastName.length > 0 &&
             userInfo.displayName.length > 0 && 
             userInfo.gender.length > 0 &&
             userInfo.dateOfBirth.length > 0 &&
             userInfo.country.length > 0
-        ))
+        )) {
+            setButtonDisabled(false)
+            setUserInfo({...userInfo, isProfileEdited: true})
+        }
 
     }, [
         userInfo.firstName,
@@ -54,7 +58,7 @@ export default function ProfileInfo() {
             console.log(userInfo.username)
             const response = await axios.put(`/api/profileinfo`, userInfo)
             console.log(response)
-            router.push(`/login`)
+            router.push(`/home`)
         } catch (error) {
             console.log(error)
         } finally {
@@ -68,9 +72,11 @@ export default function ProfileInfo() {
                 e.preventDefault();
                 handleSubmitClick();
             }}>
-                <h1>Let me introduce you more 😊</h1><br/>
+                <h1>Let me introduce you more</h1><br/>
                 <input value={userInfo.firstName} type="text" placeholder="First Name" onChange={(e) => setUserInfo({...userInfo, firstName: e.target.value})}/>
+                <br/>
                 <input value={userInfo.lastName} type="text" placeholder="Last Name" onChange={(e) => setUserInfo({...userInfo, lastName: e.target.value})}/>
+                <br/>
                 <input value={userInfo.displayName} type="text" placeholder="Display Name" onChange={(e) => setUserInfo({...userInfo, displayName: e.target.value})}/>
                 <br/><br/>
                 

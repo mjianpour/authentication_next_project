@@ -5,30 +5,30 @@ import Link from "next/link"
 import axios from "axios"
 import { useRouter } from "next/navigation"
 
-export default function Signup () {
+export default function Login () {
 
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(true);
 
     const [user, setUser] = useState({
-            userMail: "",
+            username: "",
             password: ""
         })
 
     useEffect(() => {
             setButtonDisabled(!(
-                user.userMail.length > 0 &&
+                user.username.length > 0 &&
                 user.password.length > 0
             ))
-        }, [user.userMail, user.password])
+        }, [user.username, user.password])
 
     async function handleLoginClick() {
         try {
             setIsLoading(true)
-            const response = await axios.post("api/login", user)
+            const response = await axios.post("/api/login", user)
             console.log(response.data)
-            router.push("/home")
+            router.push(`profileinfo/${user.username}`)
         } catch (error) {
         console.log(`Error message: ${error}`)
         } finally {
@@ -42,14 +42,14 @@ export default function Signup () {
         
         <br/>
 
-        <label htmlFor="useremail">Username or Email</label>
+        <label htmlFor="useremail">Username</label>
         <br/>
         <input 
         type="text"
-        placeholder="Username or Email"
+        placeholder="Username"
         id="usermail"
-        value={user.userMail}
-        onChange={(e) => setUser({...user, userMail: e.target.value})}/>
+        value={user.username}
+        onChange={(e) => setUser({...user, username: e.target.value})}/>
 
         <br/><br/>
 

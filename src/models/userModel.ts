@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
 
     profile: {
         firstName: {
-            type: String,},
+            type: String},
         lastName: {
             type: String},
         displayName: {
@@ -34,6 +34,9 @@ const userSchema = new mongoose.Schema({
             type: String},
         country: {
             type: String,
+        },
+        isProfileEdited: {
+            type: Boolean
         }
     }
 })

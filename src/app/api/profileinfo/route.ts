@@ -8,7 +8,7 @@ await connect();
 export async function PUT(request: NextRequest) {
     try {
         const reqBody = await request.json()
-        const {username, firstName, lastName, displayName, gender, dateOfBirth, country} = reqBody;
+        const {username, firstName, lastName, displayName, gender, dateOfBirth, country, isProfileEdited} = reqBody;
 
         const userInfoUpdated = await User.findOneAndUpdate({username}, 
             {
@@ -18,7 +18,8 @@ export async function PUT(request: NextRequest) {
                     "profile.displayName": displayName, 
                     "profile.gender": gender,
                     "profile.dateOfBirth": dateOfBirth,
-                    "profile.country": country
+                    "profile.country": country,
+                    "isProfileEdited": isProfileEdited
                 }
             }, {new: true}
         )
