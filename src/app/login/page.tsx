@@ -28,7 +28,16 @@ export default function Login () {
             setIsLoading(true)
             const response = await axios.post("/api/login", user)
             console.log(response.data)
-            router.push(`profileinfo/${user.username}`)
+
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            const { data } = await axios.get('/api/me');
+            
+             if (data.displayName !== "") {
+                router.push('/home');
+            } else {
+                router.push(`profileinfo/${user.username}`)
+            }
         } catch (error) {
         console.log(`Error message: ${error}`)
         } finally {

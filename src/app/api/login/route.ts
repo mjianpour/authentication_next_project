@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
         id: user._id,
         username: user.username,
         email: user.email,
-        isProfileEdited: user.profile.isProfileEdited
+        displayName: user.profile.displayName
     }
 
     const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, 
