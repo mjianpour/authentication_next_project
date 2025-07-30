@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema({
         isProfileEdited: {
             type: Boolean
         }
+    },
+
+    appLanguage: {
+        type: String
     }
 })
 

@@ -45,39 +45,79 @@ export default function Login () {
         }
     }
 
+    const [pageLan, setPageLan] = useState('En')
+
+
+    interface LanguageTexts {
+        welcomeText: string;
+        username: string;
+        password: string;
+        login: string;
+        switchText: string;
+        clickHere: string;
+}
+    const LangaugeTexts : Record<string, LanguageTexts>= {
+        En: {
+            welcomeText: "Welcome, Login to continue",
+            username: "Username",
+            password: "Password", 
+            login: "Login",
+            switchText: "Don't have an account? ",
+            clickHere: "Click Here."
+        },
+        De: {
+            welcomeText: "Willkommen, melden Sie sich an, um fortzufahren",
+            username: "Benutzername",
+            password: "Passwort",
+            login: "Anmelden",
+            switchText: "Sie haben noch kein Konto? ",
+            clickHere: "Hier klicken."
+        }
+    }
+
     return (
         <div>
-        <h1>Welcome, Login to continue</h1>
+
+        <br/>
+
+        <select value={pageLan}
+        onChange={(e) => setPageLan(e.target.value)}>
+            <option value='En'>En</option>
+            <option value='De'>De</option>
+        </select>
+
+        <br/><br/>
+        <h1>{LangaugeTexts[pageLan].welcomeText}</h1>
         
         <br/>
 
-        <label htmlFor="useremail">Username</label>
+        <label htmlFor="useremail">{LangaugeTexts[pageLan].username}</label>
         <br/>
         <input 
         type="text"
-        placeholder="Username"
+        placeholder={LangaugeTexts[pageLan].username}
         id="usermail"
         value={user.username}
         onChange={(e) => setUser({...user, username: e.target.value})}/>
 
         <br/><br/>
 
-        <label htmlFor="email">Password</label>
+        <label htmlFor="email">{LangaugeTexts[pageLan].password}</label>
         <br/>
         <input 
         type="password"
-        placeholder="Password"
+        placeholder={LangaugeTexts[pageLan].password}
         id="password"
         value={user.password}
         onChange={(e) => setUser({...user, password: e.target.value})}/>
 
         <br/><br/>
 
-        <button disabled={buttonDisabled} onClick={() => {handleLoginClick()}}>Login</button>
+        <button disabled={buttonDisabled} onClick={() => {handleLoginClick()}}>{LangaugeTexts[pageLan].login}</button>
 
         <br/>
-        <span>Don't Have an account?</span>
-        <Link href="/signup"> Click here.</Link>
+        <span>{LangaugeTexts[pageLan].switchText}</span>
+        <Link href="/signup">{LangaugeTexts[pageLan].clickHere}</Link>
 
         <br/><br/>
         <div>Continue via Google</div>

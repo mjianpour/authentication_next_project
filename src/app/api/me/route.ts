@@ -11,6 +11,9 @@ export async function GET(request: NextRequest) {
     try {
         const tokenData = await getDataFromToken(request);
         return NextResponse.json({
+            id: tokenData.id || "",
+            username: tokenData.username || "",
+            email: tokenData.email || "",
             displayName: tokenData.displayName || ""
         })
     } catch (err: any) {

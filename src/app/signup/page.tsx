@@ -14,7 +14,8 @@ export default function Signup () {
     const [user, setUser] = useState({
         email: "",
         username: "",
-        password: ""
+        password: "",
+        appLanguage: "En"
     })
 
     const [buttonDisabled, setButtonDisabled] = useState(true)
@@ -40,9 +41,50 @@ export default function Signup () {
         }
     }
 
+    interface LanguageTexts {
+        welcomeText: string;
+        email: String,
+        username: string;
+        password: string;
+        signup: string;
+        switchText: string;
+        clickHere: string;
+}
+    const LangaugeTexts : Record<string, LanguageTexts>= {
+        En: {
+            welcomeText: "Welcome to the app. Sign up to continue",
+            email: "Email",
+            username: "Username",
+            password: "Password", 
+            signup: "Sign up",
+            switchText: "Have an account? ",
+            clickHere: "Click Here."
+        },
+        De: {
+            welcomeText: "Willkommen in der App. Registrieren Sie sich, um fortzufahren",
+            email: "E-Mail",
+            username: "Benutzername",
+            password: "Passwort",
+            signup: "Registrieren",
+            switchText: "Sie haben bereits ein Konto? ",
+            clickHere: "Hier klicken."
+  }
+    }
+
     return (
         <div>
-        <h1>Welcome to the app. Sign up to continue</h1>
+        
+        <br/>
+
+        <select 
+        value={user.appLanguage}
+        onChange={(e) => setUser({...user, appLanguage: e.target.value})}>
+            <option value={'En'}>En</option>
+            <option value={'De'}>De</option>
+        </select>
+
+        <br/><br/>
+        <h1>{LangaugeTexts[user.appLanguage].welcomeText}</h1>
         
         <br/>
 
@@ -57,33 +99,33 @@ export default function Signup () {
 
         <br/><br/>
 
-        <label htmlFor="username">Username</label>
+        <label htmlFor="username">{LangaugeTexts[user.appLanguage].username}</label>
         <br/>
         <input 
         type="text"
-        placeholder="Username"
+        placeholder={LangaugeTexts[user.appLanguage].username}
         id="username"
         value={user.username}
         onChange={(e) => setUser({...user, username: e.target.value})}/>
 
         <br/><br/>
 
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">{LangaugeTexts[user.appLanguage].password}</label>
         <br/>
         <input 
         type="password"
-        placeholder="Password"
+        placeholder={LangaugeTexts[user.appLanguage].password}
         id="password"
         value={user.password}
         onChange={(e) => setUser({...user, password: e.target.value})}/>
 
         <br/><br/>
 
-        <button disabled={buttonDisabled} onClick={() => {handleSignupClick()}}>Sign up</button>
+        <button disabled={buttonDisabled} onClick={() => {handleSignupClick()}}>{LangaugeTexts[user.appLanguage].signup}</button>
 
         <br/>
-        <span>Have an account?</span>
-        <Link href="/login"> Click here.</Link>
+        <span>{LangaugeTexts[user.appLanguage].switchText}</span>
+        <Link href="/login">{LangaugeTexts[user.appLanguage].clickHere}</Link>
 
         <br/><br/>
         <div>Continue via Google</div>

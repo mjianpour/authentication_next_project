@@ -7,8 +7,7 @@ export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname
 
     // These are the public pathes of the app
-    const isPublicPath = path === "/login" || path === "/signup" || 
-    path === "/introduction"
+    const isPublicPath = path === "/login" || path === "/signup"
      
     /* Then we assign the value of token to the variable called "token", 
     Note that this value might exist or not exist, and "?" exactly states 

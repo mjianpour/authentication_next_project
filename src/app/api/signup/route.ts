@@ -8,7 +8,7 @@ await connect()
 export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json();
-        const {email, username, password} = reqBody
+        const {email, username, password, appLanguage} = reqBody
 
         const foundEmail = await User.findOne({email})
         const foundUserName = await User.findOne({username})
@@ -31,7 +31,8 @@ export async function POST(request: NextRequest) {
                 gender: "",
                 dateOfBirth: "",
                 country: ""
-            }
+            },
+            appLanguage
         })
 
         const savedUser = await newUser.save()
