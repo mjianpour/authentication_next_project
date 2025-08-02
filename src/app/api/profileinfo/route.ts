@@ -19,19 +19,19 @@ export async function PUT(request: NextRequest) {
                     "profile.gender": gender,
                     "profile.dateOfBirth": dateOfBirth,
                     "profile.country": country,
-                    "isProfileEdited": isProfileEdited
+                    "profile.isProfileEdited": isProfileEdited  // Moved inside profile
                 }
             }, {new: true}
         )
 
-        if (userInfoUpdated) {
-            return NextResponse.json({message: "User information updated successfully."}, {status: 200})
+        if (!userInfoUpdated) {
+            return NextResponse.json({error: "User not found"}, {status: 404});
         }
 
-        if (!userInfoUpdated) {
-            return NextResponse.json({error: "Couldn't update the user info, Please try again."}, {status: 500})
-        }
+        return NextResponse.json({message: "User information updated successfully."}, {status: 200});
+        
     } catch (err) {
-        return NextResponse.json({error: `Error: ${err}`}, {status: 500})
+        console.error("Update error:", err);
+        return NextResponse.json({error: `Error: ${err}`}, {status: 500});
     }
 }

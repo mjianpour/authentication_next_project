@@ -3,10 +3,16 @@ import mongoose, { Mongoose } from "mongoose";
 
 const bookSchema = new mongoose.Schema({
     username: {
-        fileName: {
+        type: String
+    }, 
+    files: [
+        {
+            fileName: {
+                type: String
+            },
             fileType: {
                 type: String,
-                enum: ['pdf', 'epub']
+                enum: ['application/pdf', 'application/epub+zip', 'pdf', 'epub']
             },
             fileSize: {
                 type: Number
@@ -16,20 +22,15 @@ const bookSchema = new mongoose.Schema({
             },
             uploadDate: {
                 type: Date
-            },
-            Metadata: {
+            },  
+            metadata: {
                 title: String,
                 author: String,
                 pageCount: Number
             },
-            fileData: {
-                type: Buffer, // Binary data storage
-                required: true
-            }
-        },
-    },
+        }
+    ],
 })
-
 
 const Book = mongoose.models.books || mongoose.model("books", bookSchema); 
 

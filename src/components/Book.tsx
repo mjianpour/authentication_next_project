@@ -1,13 +1,15 @@
 "use client"
 
 type BookProps = {
-    bookName: string
+    bookName: string,
+    firstPageViewer: string
 }
 
-export default function Book({bookName}: BookProps) {
+export default function Book({bookName, firstPageViewer}: BookProps) {
     return(
         <div>
-            <h1>{bookName}</h1>
+            <img src="BG.jpg" alt="First Page" width={"132px"}/>
+            <h1>{bookName}</h1> 
         </div>
     )
 }
